@@ -1,0 +1,34 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Dark blue halo (drawn first, underneath) for contrast on light backgrounds -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M12,20l0,-16"
+        android:strokeColor="#0D47A1"
+        android:strokeWidth="4.5"
+        android:strokeLineCap="round"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M6,10l6,-6l6,6"
+        android:strokeColor="#0D47A1"
+        android:strokeWidth="4.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+    <!-- White arrow on top -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M12,20l0,-16"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M6,10l6,-6l6,6"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"/>
+</vector>

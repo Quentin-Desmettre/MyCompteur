@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Compteur Vélo</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_recording">Enregistrer</string>
+    <string name="nav_history">Historique</string>
+    <string name="nav_settings">Paramètres</string>
+    <string name="notification_channel_recording">Enregistrement en cours</string>
+    <string name="notification_recording_title">Compteur actif</string>
+    <string name="notification_recording_text">Enregistrement en cours…</string>
+    <string name="import_gpx">Importer un fichier GPX</string>
+    <string name="no_routes">Aucune route importée</string>
+    <string name="btn_start_recording">Démarrer</string>
+    <string name="btn_stop_recording">Arrêter</string>
+    <string name="permission_location_rationale">La localisation est nécessaire pour enregistrer votre parcours.</string>
+    <string name="permission_bluetooth_rationale">Le Bluetooth est nécessaire pour se connecter aux capteurs BLE.</string>
+    <string name="error_invalid_gpx">Fichier GPX invalide ou corrompu.</string>
+    <string name="error_import_failed">Échec de l\'importation de la route.</string>
+</resources>

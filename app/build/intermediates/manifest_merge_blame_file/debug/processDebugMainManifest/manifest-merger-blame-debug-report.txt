@@ -1,0 +1,344 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.compteur"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <!--
+12    ──────────────────────────────────────────────────────────────────────
+13         Permissions Bluetooth (API 31+)
+14    ───────────────────────────────────────────────────────────────────────
+15    -->
+16    <uses-permission
+16-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:7:5-8:58
+17        android:name="android.permission.BLUETOOTH_SCAN"
+17-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:7:22-70
+18        android:usesPermissionFlags="neverForLocation" />
+18-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:8:9-55
+19    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+19-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:9:5-76
+19-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:9:22-73
+20
+21    <!-- Pour les appareils < Android 12 -->
+22    <uses-permission
+22-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:12:5-13:38
+23        android:name="android.permission.BLUETOOTH"
+23-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:12:22-65
+24        android:maxSdkVersion="30" />
+24-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:13:9-35
+25    <uses-permission
+25-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:14:5-15:38
+26        android:name="android.permission.BLUETOOTH_ADMIN"
+26-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:14:22-71
+27        android:maxSdkVersion="30" />
+27-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:15:9-35
+28
+29    <!--
+30    ──────────────────────────────────────────────────────────────────────
+31         Permissions Réseau (MapLibre)
+32    ───────────────────────────────────────────────────────────────────────
+33    -->
+34    <uses-permission android:name="android.permission.INTERNET" />
+34-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:20:5-67
+34-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:20:22-64
+35    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+35-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:21:5-79
+35-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:21:22-76
+36
+37    <!--
+38    ──────────────────────────────────────────────────────────────────────
+39         Permissions Localisation
+40    ───────────────────────────────────────────────────────────────────────
+41    -->
+42    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+42-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:27:5-79
+42-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:27:22-76
+43    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+43-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:28:5-81
+43-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:28:22-78
+44
+45    <!--
+46    ──────────────────────────────────────────────────────────────────────
+47         Permissions Service de Premier Plan
+48    ───────────────────────────────────────────────────────────────────────
+49    -->
+50    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+50-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:33:5-77
+50-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:33:22-74
+51    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+51-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:34:5-86
+51-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:34:22-83
+52    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+52-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:35:5-77
+52-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:35:22-74
+53
+54    <!--
+55    ──────────────────────────────────────────────────────────────────────
+56         Permissions Fichiers (import GPX)
+57    ───────────────────────────────────────────────────────────────────────
+58    -->
+59    <uses-permission
+59-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:40:5-41:38
+60        android:name="android.permission.READ_EXTERNAL_STORAGE"
+60-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:40:22-77
+61        android:maxSdkVersion="32" />
+61-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:41:9-35
+62
+63    <!-- Feature Bluetooth BLE (non obligatoire pour sideload sur tablette sans BLE) -->
+64    <uses-feature
+64-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:44:5-46:36
+65        android:name="android.hardware.bluetooth_le"
+65-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:45:9-53
+66        android:required="false" />
+66-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:46:9-33
+67    <uses-feature
+67-->[org.maplibre.gl:android-sdk:11.5.1] /home/quentin/.gradle/caches/9.0.0/transforms/551fc154af84fca3c0f9108180d9cbcc/transformed/android-sdk-11.5.1/AndroidManifest.xml:7:5-9:35
+68        android:glEsVersion="0x00030000"
+68-->[org.maplibre.gl:android-sdk:11.5.1] /home/quentin/.gradle/caches/9.0.0/transforms/551fc154af84fca3c0f9108180d9cbcc/transformed/android-sdk-11.5.1/AndroidManifest.xml:8:9-41
+69        android:required="true" />
+69-->[org.maplibre.gl:android-sdk:11.5.1] /home/quentin/.gradle/caches/9.0.0/transforms/551fc154af84fca3c0f9108180d9cbcc/transformed/android-sdk-11.5.1/AndroidManifest.xml:9:9-32
+70    <uses-feature
+70-->[org.maplibre.gl:android-sdk:11.5.1] /home/quentin/.gradle/caches/9.0.0/transforms/551fc154af84fca3c0f9108180d9cbcc/transformed/android-sdk-11.5.1/AndroidManifest.xml:10:5-12:36
+71        android:name="android.hardware.wifi"
+71-->[org.maplibre.gl:android-sdk:11.5.1] /home/quentin/.gradle/caches/9.0.0/transforms/551fc154af84fca3c0f9108180d9cbcc/transformed/android-sdk-11.5.1/AndroidManifest.xml:11:9-45
+72        android:required="false" />
+72-->[org.maplibre.gl:android-sdk:11.5.1] /home/quentin/.gradle/caches/9.0.0/transforms/551fc154af84fca3c0f9108180d9cbcc/transformed/android-sdk-11.5.1/AndroidManifest.xml:12:9-33
+73
+74    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+74-->[org.maplibre.gl:android-sdk:11.5.1] /home/quentin/.gradle/caches/9.0.0/transforms/551fc154af84fca3c0f9108180d9cbcc/transformed/android-sdk-11.5.1/AndroidManifest.xml:16:5-76
+74-->[org.maplibre.gl:android-sdk:11.5.1] /home/quentin/.gradle/caches/9.0.0/transforms/551fc154af84fca3c0f9108180d9cbcc/transformed/android-sdk-11.5.1/AndroidManifest.xml:16:22-73
+75
+76    <permission
+76-->[androidx.core:core:1.15.0] /home/quentin/.gradle/caches/9.0.0/transforms/600126146259f1a68f0225ae1d947657/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
+77        android:name="com.example.compteur.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+77-->[androidx.core:core:1.15.0] /home/quentin/.gradle/caches/9.0.0/transforms/600126146259f1a68f0225ae1d947657/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
+78        android:protectionLevel="signature" />
+78-->[androidx.core:core:1.15.0] /home/quentin/.gradle/caches/9.0.0/transforms/600126146259f1a68f0225ae1d947657/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
+79
+80    <uses-permission android:name="com.example.compteur.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+80-->[androidx.core:core:1.15.0] /home/quentin/.gradle/caches/9.0.0/transforms/600126146259f1a68f0225ae1d947657/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
+80-->[androidx.core:core:1.15.0] /home/quentin/.gradle/caches/9.0.0/transforms/600126146259f1a68f0225ae1d947657/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+81
+82    <application
+82-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:48:5-98:19
+83        android:name="com.example.compteur.CompteurApplication"
+83-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:49:9-44
+84        android:allowBackup="true"
+84-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:50:9-35
+85        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+85-->[androidx.core:core:1.15.0] /home/quentin/.gradle/caches/9.0.0/transforms/600126146259f1a68f0225ae1d947657/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
+86        android:debuggable="true"
+87        android:extractNativeLibs="false"
+88        android:icon="@mipmap/ic_launcher"
+88-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:51:9-43
+89        android:label="@string/app_name"
+89-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:52:9-41
+90        android:roundIcon="@mipmap/ic_launcher_round"
+90-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:53:9-54
+91        android:supportsRtl="true"
+91-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:54:9-35
+92        android:testOnly="true"
+93        android:theme="@style/Theme.MyCompteur" >
+93-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:55:9-48
+94        <activity
+94-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:57:9-75:20
+95            android:name="com.example.compteur.MainActivity"
+95-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:58:13-41
+96            android:exported="true"
+96-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:59:13-36
+97            android:screenOrientation="portrait"
+97-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:61:13-49
+98            android:windowSoftInputMode="adjustResize" >
+98-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:60:13-55
+99            <intent-filter>
+99-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:62:13-65:29
+100                <action android:name="android.intent.action.MAIN" />
+100-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:63:17-69
+100-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:63:25-66
+101
+102                <category android:name="android.intent.category.LAUNCHER" />
+102-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:64:17-77
+102-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:64:27-74
+103            </intent-filter>
+104            <!-- Intent Filter pour le retour de l'OAuth Strava (schéma custom) -->
+105            <intent-filter>
+105-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:67:13-74:29
+106                <action android:name="android.intent.action.VIEW" />
+106-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:68:17-69
+106-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:68:25-66
+107
+108                <category android:name="android.intent.category.DEFAULT" />
+108-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:69:17-76
+108-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:69:27-73
+109                <category android:name="android.intent.category.BROWSABLE" />
+109-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:70:17-78
+109-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:70:27-75
+110
+111                <data
+111-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:71:17-73:45
+112                    android:host="strava"
+112-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:73:21-42
+113                    android:scheme="compteur" />
+113-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:72:21-46
+114            </intent-filter>
+115        </activity>
+116
+117        <!--
+118        ──────────────────────────────────────────────────────────────────
+119             Foreground Service — Enregistrement (localisation + capteurs BLE)
+120        ───────────────────────────────────────────────────────────────────
+121        -->
+122        <service
+122-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:80:9-83:56
+123            android:name="com.example.compteur.service.RecordingService"
+123-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:81:13-53
+124            android:exported="false"
+124-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:82:13-37
+125            android:foregroundServiceType="location" />
+125-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:83:13-53
+126
+127        <!--
+128        ──────────────────────────────────────────────────────────────────
+129             FileProvider pour l'exportation des fichiers FIT
+130        ───────────────────────────────────────────────────────────────────
+131        -->
+132        <provider
+133            android:name="androidx.core.content.FileProvider"
+133-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:89:13-62
+134            android:authorities="com.example.compteur.fileprovider"
+134-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:90:13-64
+135            android:exported="false"
+135-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:91:13-37
+136            android:grantUriPermissions="true" >
+136-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:92:13-47
+137            <meta-data
+137-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:93:13-95:54
+138                android:name="android.support.FILE_PROVIDER_PATHS"
+138-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:94:17-67
+139                android:resource="@xml/file_paths" />
+139-->/home/quentin/projects/my_compteur/app/src/main/AndroidManifest.xml:95:17-51
+140        </provider>
+141
+142        <activity
+142-->[com.google.android.gms:play-services-base:18.5.0] /home/quentin/.gradle/caches/9.0.0/transforms/90e64fd6a130dd781cecd5e585339a84/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:9-173
+143            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+143-->[com.google.android.gms:play-services-base:18.5.0] /home/quentin/.gradle/caches/9.0.0/transforms/90e64fd6a130dd781cecd5e585339a84/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:19-85
+144            android:exported="false"
+144-->[com.google.android.gms:play-services-base:18.5.0] /home/quentin/.gradle/caches/9.0.0/transforms/90e64fd6a130dd781cecd5e585339a84/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:146-170
+145            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+145-->[com.google.android.gms:play-services-base:18.5.0] /home/quentin/.gradle/caches/9.0.0/transforms/90e64fd6a130dd781cecd5e585339a84/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:86-145
+146
+147        <meta-data
+147-->[com.google.android.gms:play-services-basement:18.4.0] /home/quentin/.gradle/caches/9.0.0/transforms/9bf0985fad9f9026d5bb6fcd3c7be8fd/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
+148            android:name="com.google.android.gms.version"
+148-->[com.google.android.gms:play-services-basement:18.4.0] /home/quentin/.gradle/caches/9.0.0/transforms/9bf0985fad9f9026d5bb6fcd3c7be8fd/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
+149            android:value="@integer/google_play_services_version" />
+149-->[com.google.android.gms:play-services-basement:18.4.0] /home/quentin/.gradle/caches/9.0.0/transforms/9bf0985fad9f9026d5bb6fcd3c7be8fd/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
+150
+151        <activity
+151-->[androidx.compose.ui:ui-tooling-android:1.7.5] /home/quentin/.gradle/caches/9.0.0/transforms/4a059cd41f2d0201af7abcc38e90b7c3/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+152            android:name="androidx.compose.ui.tooling.PreviewActivity"
+152-->[androidx.compose.ui:ui-tooling-android:1.7.5] /home/quentin/.gradle/caches/9.0.0/transforms/4a059cd41f2d0201af7abcc38e90b7c3/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+153            android:exported="true" />
+153-->[androidx.compose.ui:ui-tooling-android:1.7.5] /home/quentin/.gradle/caches/9.0.0/transforms/4a059cd41f2d0201af7abcc38e90b7c3/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+154
+155        <provider
+155-->[androidx.emoji2:emoji2:1.3.0] /home/quentin/.gradle/caches/9.0.0/transforms/273715051af649ef60dc7b19eec5367c/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+156            android:name="androidx.startup.InitializationProvider"
+156-->[androidx.emoji2:emoji2:1.3.0] /home/quentin/.gradle/caches/9.0.0/transforms/273715051af649ef60dc7b19eec5367c/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+157            android:authorities="com.example.compteur.androidx-startup"
+157-->[androidx.emoji2:emoji2:1.3.0] /home/quentin/.gradle/caches/9.0.0/transforms/273715051af649ef60dc7b19eec5367c/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+158            android:exported="false" >
+158-->[androidx.emoji2:emoji2:1.3.0] /home/quentin/.gradle/caches/9.0.0/transforms/273715051af649ef60dc7b19eec5367c/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+159            <meta-data
+159-->[androidx.emoji2:emoji2:1.3.0] /home/quentin/.gradle/caches/9.0.0/transforms/273715051af649ef60dc7b19eec5367c/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+160                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+160-->[androidx.emoji2:emoji2:1.3.0] /home/quentin/.gradle/caches/9.0.0/transforms/273715051af649ef60dc7b19eec5367c/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+161                android:value="androidx.startup" />
+161-->[androidx.emoji2:emoji2:1.3.0] /home/quentin/.gradle/caches/9.0.0/transforms/273715051af649ef60dc7b19eec5367c/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+162            <meta-data
+162-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/quentin/.gradle/caches/9.0.0/transforms/8b910761ae57930ed79a449321c840ed/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
+163                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+163-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/quentin/.gradle/caches/9.0.0/transforms/8b910761ae57930ed79a449321c840ed/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
+164                android:value="androidx.startup" />
+164-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/quentin/.gradle/caches/9.0.0/transforms/8b910761ae57930ed79a449321c840ed/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
+165            <meta-data
+165-->[com.juul.kable:kable-core-android:0.37.0] /home/quentin/.gradle/caches/9.0.0/transforms/0f5af70749b51c3c9fff6a5da638d0c1/transformed/kable-core-release/AndroidManifest.xml:14:13-16:52
+166                android:name="com.juul.kable.KableInitializer"
+166-->[com.juul.kable:kable-core-android:0.37.0] /home/quentin/.gradle/caches/9.0.0/transforms/0f5af70749b51c3c9fff6a5da638d0c1/transformed/kable-core-release/AndroidManifest.xml:15:17-63
+167                android:value="androidx.startup" />
+167-->[com.juul.kable:kable-core-android:0.37.0] /home/quentin/.gradle/caches/9.0.0/transforms/0f5af70749b51c3c9fff6a5da638d0c1/transformed/kable-core-release/AndroidManifest.xml:16:17-49
+168            <meta-data
+168-->[com.juul.tuulbox:coroutines-android:8.0.0] /home/quentin/.gradle/caches/9.0.0/transforms/a24ab5255c8eec0bcec83d10fcf913ee/transformed/coroutines-release/AndroidManifest.xml:14:13-16:52
+169                android:name="com.juul.tuulbox.coroutines.TuulboxCoroutinesInitializer"
+169-->[com.juul.tuulbox:coroutines-android:8.0.0] /home/quentin/.gradle/caches/9.0.0/transforms/a24ab5255c8eec0bcec83d10fcf913ee/transformed/coroutines-release/AndroidManifest.xml:15:17-88
+170                android:value="androidx.startup" />
+170-->[com.juul.tuulbox:coroutines-android:8.0.0] /home/quentin/.gradle/caches/9.0.0/transforms/a24ab5255c8eec0bcec83d10fcf913ee/transformed/coroutines-release/AndroidManifest.xml:16:17-49
+171            <meta-data
+171-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+172                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+172-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+173                android:value="androidx.startup" />
+173-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+174        </provider>
+175
+176        <activity
+176-->[androidx.compose.ui:ui-test-manifest:1.7.5] /home/quentin/.gradle/caches/9.0.0/transforms/9b19267c607fd06daba67712fa68323b/transformed/ui-test-manifest-1.7.5/AndroidManifest.xml:23:9-25:39
+177            android:name="androidx.activity.ComponentActivity"
+177-->[androidx.compose.ui:ui-test-manifest:1.7.5] /home/quentin/.gradle/caches/9.0.0/transforms/9b19267c607fd06daba67712fa68323b/transformed/ui-test-manifest-1.7.5/AndroidManifest.xml:24:13-63
+178            android:exported="true" />
+178-->[androidx.compose.ui:ui-test-manifest:1.7.5] /home/quentin/.gradle/caches/9.0.0/transforms/9b19267c607fd06daba67712fa68323b/transformed/ui-test-manifest-1.7.5/AndroidManifest.xml:25:13-36
+179
+180        <service
+180-->[androidx.room:room-runtime:2.6.1] /home/quentin/.gradle/caches/9.0.0/transforms/50b94dd4f85c199b30402cd3f4c41a61/transformed/room-runtime-2.6.1/AndroidManifest.xml:24:9-28:63
+181            android:name="androidx.room.MultiInstanceInvalidationService"
+181-->[androidx.room:room-runtime:2.6.1] /home/quentin/.gradle/caches/9.0.0/transforms/50b94dd4f85c199b30402cd3f4c41a61/transformed/room-runtime-2.6.1/AndroidManifest.xml:25:13-74
+182            android:directBootAware="true"
+182-->[androidx.room:room-runtime:2.6.1] /home/quentin/.gradle/caches/9.0.0/transforms/50b94dd4f85c199b30402cd3f4c41a61/transformed/room-runtime-2.6.1/AndroidManifest.xml:26:13-43
+183            android:exported="false" />
+183-->[androidx.room:room-runtime:2.6.1] /home/quentin/.gradle/caches/9.0.0/transforms/50b94dd4f85c199b30402cd3f4c41a61/transformed/room-runtime-2.6.1/AndroidManifest.xml:27:13-37
+184
+185        <receiver
+185-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+186            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+186-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+187            android:directBootAware="false"
+187-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+188            android:enabled="true"
+188-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+189            android:exported="true"
+189-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+190            android:permission="android.permission.DUMP" >
+190-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+191            <intent-filter>
+191-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+192                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+192-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+192-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+193            </intent-filter>
+194            <intent-filter>
+194-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+195                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+195-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+195-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+196            </intent-filter>
+197            <intent-filter>
+197-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+198                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+198-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+198-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+199            </intent-filter>
+200            <intent-filter>
+200-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+201                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+201-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+201-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/quentin/.gradle/caches/9.0.0/transforms/af5a1955e78dcb92dd60c7cd324abe47/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+202            </intent-filter>
+203        </receiver>
+204    </application>
+205
+206</manifest>

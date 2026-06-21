@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Thème XML minimal requis par l'Activity avant que Compose prenne la main.
+    Le vrai thème AMOLED est défini dans TrueBlackTheme.kt (Compose).
+-->
+<resources>
+    <style name="Theme.MyCompteur" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">#000000</item>
+        <item name="android:statusBarColor">#000000</item>
+        <item name="android:navigationBarColor">#000000</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

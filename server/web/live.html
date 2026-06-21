@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyCompteur — Suivi live</title>
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <link href="/static/styles.css" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1 id="title">Suivi live</h1>
+      <div id="status" class="status">Connexion…</div>
+    </div>
+    <div id="eta-box" class="eta-box">
+      <div class="eta-label">ETA</div>
+      <div id="eta" class="eta-value">—</div>
+      <div id="time-remaining" class="eta-sub">—</div>
+    </div>
+  </header>
+
+  <section class="progress-wrap">
+    <div class="progress-bar"><div id="progress-fill"></div></div>
+    <div class="progress-text">
+      <span id="dist-done">0,0 km</span>
+      <span id="progress-pct">0 %</span>
+      <span id="dist-remaining">— restants</span>
+    </div>
+  </section>
+
+  <div id="map"></div>
+
+  <section class="tiles" id="tiles">
+    <div class="tile"><div class="tile-label">Vitesse</div><div class="tile-value" id="v-speed">—</div><div class="tile-unit">km/h</div></div>
+    <div class="tile"><div class="tile-label">Cardio</div><div class="tile-value" id="v-hr">—</div><div class="tile-unit">bpm</div></div>
+    <div class="tile"><div class="tile-label">Cadence</div><div class="tile-value" id="v-cad">—</div><div class="tile-unit">rpm</div></div>
+    <div class="tile"><div class="tile-label">Puissance</div><div class="tile-value" id="v-pow">—</div><div class="tile-unit">W</div></div>
+    <div class="tile"><div class="tile-label">Distance</div><div class="tile-value" id="v-dist">—</div><div class="tile-unit">km</div></div>
+    <div class="tile"><div class="tile-label">Dénivelé+</div><div class="tile-value" id="v-asc">—</div><div class="tile-unit">m</div></div>
+  </section>
+
+  <section class="charts">
+    <div class="chart-card"><h3>Fréquence cardiaque</h3><canvas id="chart-hr"></canvas></div>
+    <div class="chart-card"><h3>Vitesse</h3><canvas id="chart-speed"></canvas></div>
+    <div class="chart-card"><h3>Cadence</h3><canvas id="chart-cadence"></canvas></div>
+    <div class="chart-card"><h3>Puissance</h3><canvas id="chart-power"></canvas></div>
+    <div class="chart-card"><h3>Altitude / dénivelé</h3><canvas id="chart-ascent"></canvas></div>
+  </section>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
