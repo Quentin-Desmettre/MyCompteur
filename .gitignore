@@ -1,0 +1,42 @@
+# ─── Android / Gradle ────────────────────────────────────────
+.gradle/
+build/
+app/build/
+captures/
+*.apk
+*.aab
+*.ap_
+*.dex
+local.properties
+.cxx/
+.kotlin/
+
+# Keystore / signing (ne jamais committer)
+*.jks
+*.keystore
+keystore.properties
+
+# ─── IDE ─────────────────────────────────────────────────────
+.idea/
+*.iml
+.vscode/
+
+# ─── Serveur Python / FastAPI ────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ─── Secrets / env ───────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ─── OS ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
