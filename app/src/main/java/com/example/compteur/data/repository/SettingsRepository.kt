@@ -52,6 +52,8 @@ class SettingsRepository @Inject constructor(
     private val LIVE_TRACKING_INGEST_KEY_KEY = stringPreferencesKey("live_tracking_ingest_key")
     private val LIVE_TRACKING_LAST_SHARE_URL_KEY = stringPreferencesKey("live_tracking_last_share_url")
 
+    private val DEFAULT_LIVE_TRACKING_BASE_URL = "https://bikelive.quentin-desmettre.fr"
+
     val mapStyleFlow: Flow<MapStyle> = context.dataStore.data.map { preferences ->
         val styleName = preferences[MAP_STYLE_KEY] ?: MapStyle.CLASSIC.name
         try {
@@ -153,7 +155,7 @@ class SettingsRepository @Inject constructor(
     }
 
     val liveTrackingBaseUrlFlow: Flow<String> = context.dataStore.data.map { preferences ->
-        preferences[LIVE_TRACKING_BASE_URL_KEY] ?: ""
+        preferences[LIVE_TRACKING_BASE_URL_KEY] ?: DEFAULT_LIVE_TRACKING_BASE_URL
     }
 
     suspend fun setLiveTrackingBaseUrl(url: String) {

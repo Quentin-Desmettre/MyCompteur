@@ -66,6 +66,13 @@ class RecordingViewModel @Inject constructor(
     val lactateThreshold: StateFlow<Int> = settingsRepository.lactateThresholdFlow
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 160)
 
+    val liveTrackingEnabled: StateFlow<Boolean> = settingsRepository.liveTrackingEnabledFlow
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    /** Lien public de la course en cours (renseigné par le service quand le suivi live démarre). */
+    val shareUrl: StateFlow<String?> = settingsRepository.lastShareUrlFlow
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
     private var recordingService: RecordingService? = null
     private val _isServiceBound = MutableStateFlow(false)
 

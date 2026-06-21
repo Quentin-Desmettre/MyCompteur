@@ -19,6 +19,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import android.Manifest
 import android.os.Build
 import android.content.pm.PackageManager
@@ -54,6 +56,8 @@ fun RecordingScreen(
     val displayDistanceKm by viewModel.displayDistanceKm.collectAsState()
     val elapsedTime by viewModel.elapsedTimeSeconds.collectAsState()
     val heartRateZoneInfo by viewModel.heartRateZoneInfo.collectAsState()
+    val liveTrackingEnabled by viewModel.liveTrackingEnabled.collectAsState()
+    val shareUrl by viewModel.shareUrl.collectAsState()
 
     var isFullscreen by remember { mutableStateOf(false) }
     var mapCameraMode by remember { mutableIntStateOf(0) } // 0: Free, 1: Follow Position, 2: Follow Position & Bearing
@@ -63,6 +67,8 @@ fun RecordingScreen(
     var showGpsDialog by remember { mutableStateOf(false) }
     var showBluetoothDialog by remember { mutableStateOf(false) }
     var showStopDialog by remember { mutableStateOf(false) }
+    var showShareDialog by remember { mutableStateOf(false) }
+    val clipboard = LocalClipboardManager.current
 
     val bluetoothLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -224,6 +230,24 @@ fun RecordingScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Share live link button (only while recording with live tracking active)
+            if (isRecording && liveTrackingEnabled && !shareUrl.isNullOrBlank()) {
+                FloatingActionButton(
+                    onClick = { showShareDialog = true },
+                    modifier = Modifier.size(48.dp),
+                    containerColor = AccentCyan,
+                    contentColor = Color.Black,
+                    shape = CircleShape,
+                    elevation = FloatingActionButtonDefaults.elevation(4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Share,
+                        contentDescription = "Partager le lien live",
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
+            }
+
             // Stop button (only when recording)
             if (isRecording) {
                 FloatingActionButton(
@@ -340,6 +364,45 @@ fun RecordingScreen(
                 dismissButton = {
                     TextButton(onClick = { showBluetoothDialog = false }) {
                         Text("Plus tard")
+                    }
+                }
+            )
+        }
+
+        if (showShareDialog && !shareUrl.isNullOrBlank()) {
+            val link = shareUrl!!
+            AlertDialog(
+                onDismissRequest = { showShareDialog = false },
+                title = { Text("Suivi live") },
+                text = {
+                    Column {
+                        Text("Partagez ce lien pour que vos proches suivent votre course en direct :")
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = link,
+                            color = AccentCyan,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                },
+                confirmButton = {
+                    Button(onClick = {
+                        showShareDialog = false
+                        val intent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_TEXT, link)
+                        }
+                        context.startActivity(Intent.createChooser(intent, "Partager le lien"))
+                    }) {
+                        Text("Partager")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = {
+                        clipboard.setText(AnnotatedString(link))
+                        showShareDialog = false
+                    }) {
+                        Text("Copier")
                     }
                 }
             )

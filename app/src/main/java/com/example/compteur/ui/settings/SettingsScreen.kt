@@ -753,6 +753,17 @@ fun LiveTrackingSettingsSection(
     val context = LocalContext.current
     val clipboard = LocalClipboardManager.current
 
+    // Champs édités en état local : on n'affiche pas la valeur qui revient (async) de DataStore,
+    // sinon la latence du round-trip fait sauter le curseur / mélange les caractères en frappe rapide.
+    // On adopte la valeur persistée tant que l'utilisateur n'a pas commencé à taper (chargement initial).
+    var baseUrlField by remember { mutableStateOf(baseUrl) }
+    var baseUrlEdited by remember { mutableStateOf(false) }
+    LaunchedEffect(baseUrl) { if (!baseUrlEdited) baseUrlField = baseUrl }
+
+    var ingestKeyField by remember { mutableStateOf(ingestKey) }
+    var ingestKeyEdited by remember { mutableStateOf(false) }
+    LaunchedEffect(ingestKey) { if (!ingestKeyEdited) ingestKeyField = ingestKey }
+
     Text(
         text = "Suivi live public",
         style = MaterialTheme.typography.titleMedium,
@@ -790,8 +801,12 @@ fun LiveTrackingSettingsSection(
             Spacer(modifier = Modifier.height(12.dp))
 
             OutlinedTextField(
-                value = baseUrl,
-                onValueChange = onBaseUrlChange,
+                value = baseUrlField,
+                onValueChange = {
+                    baseUrlField = it
+                    baseUrlEdited = true
+                    onBaseUrlChange(it)
+                },
                 label = { Text("URL du serveur") },
                 placeholder = { Text("https://suivi.exemple.com") },
                 singleLine = true,
@@ -802,8 +817,12 @@ fun LiveTrackingSettingsSection(
             Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
-                value = ingestKey,
-                onValueChange = onIngestKeyChange,
+                value = ingestKeyField,
+                onValueChange = {
+                    ingestKeyField = it
+                    ingestKeyEdited = true
+                    onIngestKeyChange(it)
+                },
                 label = { Text("Clé d'ingestion") },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()

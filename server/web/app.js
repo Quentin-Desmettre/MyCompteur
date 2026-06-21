@@ -2,11 +2,29 @@
 const TOKEN = window.location.pathname.split("/").filter(Boolean).pop();
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 
+// Au-delà de ce délai sans nouvel échantillon, un live « actif » est
+// considéré hors ligne (téléphone déconnecté, app fermée, etc.).
+const STALE_MS = 60000;
+
 let map = null;
 let routeDrawn = false;
-let lastT = 0;
+let lastT = 0; // timestamp epoch (ms) du dernier échantillon reçu
+let sessionStatus = null; // "live" | "finished" venant du serveur
 const traveled = []; // [lng, lat] de la trace réelle
 const charts = {};
+
+// Récupère du JSON en signalant les erreurs HTTP (token invalide, serveur KO…).
+async function fetchJson(url) {
+  const r = await fetch(url);
+  if (!r.ok) {
+    let detail = "";
+    try { detail = (await r.json()).detail || ""; } catch (_) { /* corps non-JSON */ }
+    const err = new Error(detail || `HTTP ${r.status}`);
+    err.status = r.status;
+    throw err;
+  }
+  return r.json();
+}
 
 function fmtKm(m) {
   if (m == null) return "—";
@@ -150,25 +168,76 @@ async function bootstrap() {
   makeChart("chart-power", "W", "#eab308");
   makeChart("chart-ascent", "m", "#a855f7");
 
-  const meta = await fetch(`/api/live/${TOKEN}`).then((r) => r.json());
+  let meta;
+  try {
+    meta = await fetchJson(`/api/live/${TOKEN}`);
+  } catch (e) {
+    showError(e.status === 404
+      ? "Ce lien de suivi est invalide ou a expiré."
+      : `Impossible de charger le suivi : ${e.message}`);
+    return;
+  }
+
+  sessionStatus = meta.status;
   document.getElementById("title").textContent = meta.route_name || meta.athlete_name || "Suivi live";
-  setStatus(meta.status);
   initMap(meta.route_geojson);
 
   // Historique initial pour remplir les graphes
-  const samples = await fetch(`/api/live/${TOKEN}/samples?since=0`).then((r) => r.json());
-  samples.forEach(applySample);
-  redrawCharts();
+  try {
+    const samples = await fetchJson(`/api/live/${TOKEN}/samples?since=0`);
+    samples.forEach(applySample);
+    redrawCharts();
+  } catch (e) {
+    // Les métadonnées sont là mais l'historique a échoué : on garde les graphes vides.
+    console.warn("Historique indisponible :", e);
+  }
 
+  refreshLiveness();
   connectWs();
   // Repli : si le WebSocket tombe, on continue à poller toutes les 5 s.
   setInterval(poll, 5000);
+  // Réévalue en continu si le live est encore « réel » (devient hors ligne après STALE_MS).
+  setInterval(refreshLiveness, 5000);
 }
 
-function setStatus(status) {
+function setStatus(state, text) {
   const el = document.getElementById("status");
-  el.className = "status " + (status || "");
-  el.textContent = status === "finished" ? "Course terminée" : "● En direct";
+  el.className = "status " + state;
+  el.textContent = text;
+}
+
+// Détermine si le live affiché est un « vrai » live (données récentes) ou non.
+function refreshLiveness() {
+  if (sessionStatus === "finished") {
+    setStatus("finished", "Course terminée");
+    return;
+  }
+  if (!lastT) {
+    setStatus("stale", "En attente de données…");
+    return;
+  }
+  const age = Date.now() - lastT;
+  if (age < STALE_MS) {
+    setStatus("live", "● En direct");
+  } else {
+    setStatus("stale", `Hors ligne — dernier point il y a ${fmtAge(age)}`);
+  }
+}
+
+function fmtAge(ms) {
+  const s = Math.round(ms / 1000);
+  if (s < 60) return `${s} s`;
+  const m = Math.round(s / 60);
+  if (m < 60) return `${m} min`;
+  return `${Math.round(m / 60)} h`;
+}
+
+// Affiche un bandeau d'erreur bloquant (token invalide, serveur injoignable…).
+function showError(message) {
+  setStatus("error", "Indisponible");
+  const banner = document.getElementById("banner");
+  banner.textContent = message;
+  banner.style.display = "block";
 }
 
 let ws = null;
@@ -180,8 +249,10 @@ function connectWs() {
     if (msg.type === "sample") {
       applySample(msg.sample);
       redrawCharts();
+      refreshLiveness();
     } else if (msg.type === "finished") {
-      setStatus("finished");
+      sessionStatus = "finished";
+      refreshLiveness();
     }
   };
   ws.onclose = () => setTimeout(connectWs, 3000);
@@ -189,12 +260,13 @@ function connectWs() {
 
 async function poll() {
   try {
-    const samples = await fetch(`/api/live/${TOKEN}/samples?since=${lastT}`).then((r) => r.json());
+    const samples = await fetchJson(`/api/live/${TOKEN}/samples?since=${lastT}`);
     if (samples.length) {
       samples.forEach(applySample);
       redrawCharts();
+      refreshLiveness();
     }
-  } catch (e) { /* ignore */ }
+  } catch (e) { /* réessayé au prochain tick */ }
 }
 
 bootstrap();
